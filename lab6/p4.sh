@@ -133,9 +133,15 @@ elif [[ $1 == "-j" ]]; then
     k=0
     while read p; do
         echo "$p"
-        k=$(( $k + 1 ))
+        IFS=' ' read -r -a array <<< "$p"
+        temp_n=${#array[@]}
+        k=$(( $k + $temp_n ))
     done < $2
     echo $k words
+
+elif [[ $1 == "-k" ]]; then
+    echo "sudo shutdown -r now"
+
 else 
     echo no valid keys were given
 fi
